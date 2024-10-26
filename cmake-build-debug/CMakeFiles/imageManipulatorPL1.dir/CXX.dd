@@ -1,0 +1,19 @@
+ninja_dyndep_version = 1.0
+build CMakeFiles\imageManipulatorPL1.dir\main.cpp.obj: dyndep
+
+build CMakeFiles\imageManipulatorPL1.dir\menu.cpp.obj: dyndep
+
+build CMakeFiles\imageManipulatorPL1.dir\pila.cpp.obj: dyndep
+
+build CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj: dyndep
+
+build CMakeFiles\imageManipulatorPL1.dir\colas.cpp.obj: dyndep
+
+build CMakeFiles\imageManipulatorPL1.dir\listas.cpp.obj: dyndep
+
+build CMakeFiles\imageManipulatorPL1.dir\nodoPilas.cpp.obj: dyndep
+
+build CMakeFiles\imageManipulatorPL1.dir\nodoListas.cpp.obj: dyndep
+
+build CMakeFiles\imageManipulatorPL1.dir\nodoColas.cpp.obj: dyndep
+

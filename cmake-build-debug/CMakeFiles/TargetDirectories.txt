@@ -1,0 +1,3 @@
+C:/Users/abelb/CLionProjects/imageManipulatorPL1/cmake-build-debug/CMakeFiles/imageManipulatorPL1.dir
+C:/Users/abelb/CLionProjects/imageManipulatorPL1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/abelb/CLionProjects/imageManipulatorPL1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

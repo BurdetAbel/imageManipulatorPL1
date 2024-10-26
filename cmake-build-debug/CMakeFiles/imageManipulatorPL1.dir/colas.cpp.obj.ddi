@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "CMakeFiles\\imageManipulatorPL1.dir\\colas.cpp.obj",
+            "outputs": [
+                "C:\\Users\\abelb\\CLionProjects\\imageManipulatorPL1\\cmake-build-debug\\vc140.pdb",
+                "CMakeFiles\\imageManipulatorPL1.dir\\colas.cpp.obj.ddi"
+            ],
+            "requires": []
+        }
+    ]
+}
