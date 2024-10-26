@@ -26,7 +26,10 @@ add_executable(imageManipulatorPL1 main.cpp
         nodoListas.cpp
         nodoListas.h
         nodoColas.cpp
-        nodoColas.h)
+        nodoColas.h
+        funciones.cpp
+        funciones.h
+        funciones.h)
 
 set(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)
 

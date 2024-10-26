@@ -1,7 +1,7 @@
 //
 // Created by abelb on 24/10/2024.
 //
-
+/*
 #ifndef LISTAS_H
 #define LISTAS_H
 #include "nodoListas.h"

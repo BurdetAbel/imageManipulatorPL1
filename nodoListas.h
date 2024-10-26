@@ -2,6 +2,7 @@
 // Created by abelb on 24/10/2024.
 //
 
+/*
 #ifndef NODOLISTAS_H
 #define NODOLISTAS_H
 
@@ -46,3 +47,5 @@ public:
 
 
 #endif //NODOLISTAS_H
+
+*/

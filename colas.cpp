@@ -2,29 +2,102 @@
 // Created by abelb on 24/10/2024.
 //
 
+/*
+
 #include "colas.h"
-void Cola::encolar(int vv) {
-pnodo nuevo; // Crear el nodo nuevo
-nuevo = new Nodo(vv);
-/* Si la cola no estaba vacía, añadimos el nuevo a continuación de último */
-if(ultimo) ultimo -> siguiente = nuevo;
-ultimo = nuevo;/* Ahora, el último elemento de la cola es el nuevo nodo */
-/* Si primero es NULL, la cola estaba vacía, ahora primero apuntará también 
-al nuevo nodo */
-if(!primero) primero = nuevo;
+
+#include <stdlib.h>
+#include <iostream>
+
+//---------------------------------------------------------------------------------------------------------------------------------------
+//Variable contador para metodo mostrar
+int contador;
+// Destructor
+Cola::~Cola()
+{
+    while(primero) desencolar();
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
 
-int Cola::desencolar() {
-pnodo nodoaux; /* variable auxiliar para manipular nodo */
-int vv; /* variable auxiliar para retorno */
-nodoaux = primero;/* Nodo apunta al primer elemento de la pila */
-if(!nodoaux) return 0; /* Si no hay nodos en la pila, retornamos 0 */
-primero = nodoaux -> siguiente; /* Asignamos a primero la dirección del
-segundo nodo */
-vv = nodoaux -> valor; /* Guardamos el valor de retorno */
-delete nodoaux; /* Borrar el nodo */
-if(!primero) ultimo = NULL; /* Si la cola quedó vacía, ultimo debe ser NULL
-también*/
-return vv;
+void Cola::encolar(string v)
+{
+    pNodos nuevo; // Crear un nodo nuevo
+    nuevo = new nodos(v);
+
+    // Si la cola no estaba vac�a, a�adimos el nuevo a continuaci�n de �ltimo
+    if(ultimo) ultimo->siguiente = nuevo;
+
+    // Ahora, el �ltimo elemento de la cola es el nuevo nodo
+    ultimo = nuevo;
+
+    // Si primero es NULL, la cola estaba vac�a, ahora primero apuntar� tambi�n al nuevo nodo
+    if(!primero) primero = nuevo;
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+string Cola::desencolar()
+{
+    pNodos nodo; // variable auxiliar para manipular nodo
+    string v; // variable auxiliar para retorno
+
+    // Nodo apunta al primer elemento de la pila
+    nodo = primero;
+
+    if(!nodo) return generaCocheVacio(); // Si no hay nodos en la pila retornamos 0
+
+    // Asignamos a primero la direcci�n del segundo nodo
+    primero = nodo->siguiente;
+
+    // Guardamos el valor de retorno
+    v = nodo->valor;
+
+    // Borrar el nodo
+    delete nodo;
+
+    // Si la cola qued� vac�a, ultimo debe ser NULL tambi�n
+    if(!primero) ultimo = NULL;
+
+    return v;
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+// Muestra los valores de la cola
+void Cola::mostrar()
+{
+    pNodos aux = primero;//nodo aux apunta a primero
+
+    //mientras aux exista se muestran los valores que hay dentro de la cola
+    while(aux)
+    {
+            cout<< " -------------------------------------------    "<<endl;
+            cout <<"Vehiculo: "<<aux->valor.color<<", "<<aux->valor.zona<<""<<aux->valor.num_concesionario<<", "<<aux->valor.modelo<<", "<<aux->valor.num_bastidor<<", "<<aux->valor.dig_camion<<endl;
+            aux = aux->siguiente;//aux apunta al siguiente valor en la cola
+            contador += 1;
+    }
+    cout <<""<<endl;
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+// Observa si la cola est� vacia
+bool Cola::es__cola_vacia()
+{
+    bool b;
+    pNodos nodo;
+    nodo = primero; // Nodo apunta a primero
+
+    if (!nodo) // Si nodo no existe
+        b = true; // Variable toma el valor de true
+    else{ // Si existe
+        b = false; // Variable toma el valor de false
+    }
+
+    return b; // Devuelve el valor de la variable
+}
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+
+*/
