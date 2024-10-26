@@ -7,17 +7,25 @@
 #ifndef PILA_H
 #define PILA_H
 #include "nodoPilas.h"
-class Pila {
+
+
+
+
+
+using namespace std;
+
+class Pila
+{
 private:
-    pNodo cima;
+    pNodos cima; // Puntero cima
 public:
-    Pila() : cima(NULL) {} // Constructor de Pila1
-    ~Pila(); // Destructor de la pila
-    int arregloPila[200]; // Implementación del arreglo arregloPila
-    int top = -1; // Control de pila vacía del arregloPila
-    int tam = 0;
-    void apilar(int);
-    int desapilar();
-    void mostrar();
+    Pila() : cima(NULL) {}       // Constructor de Pila:  -> pila
+    ~Pila();                     // Destructor de pila:  pila -> void
+    void apilar(string v);     // Apilar elemento: elemento pila -> pila(devuelve un void pero el resultado interno es que modifica la pila que le das)
+    string desapilar();        // Desapilar pila: pila -> elemento
+    void mostrarCima();          // Mostrar cima : pila -> elemento
+    bool es__pila_vacia();       // Es_pila_vacia?: pila -> bool
+    string DarZonaVehiculo(Pila c); // DarZonaVehiculo: pila -> string
 };
-#endif //PILA_H
+
+#endif // PILA_H

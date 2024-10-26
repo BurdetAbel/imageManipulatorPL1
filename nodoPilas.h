@@ -2,28 +2,41 @@
 // Created by abelb on 24/10/2024.
 //
 
+
+
 #ifndef NODOPILAS_H
 #define NODOPILAS_H
 
-
-
-// Práctica de Pilas
+#include <opencv2/core.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>  // Para la función cvtColor
 #include <iostream>
-#include <locale.h> // Librería de configuraciones específicas
-using std::cout; using std::cin; using std::endl;
-class Nodo {
-private:
-    int valor;
-    Nodo *siguiente;
-    friend class Pila;
+#include <filesystem>
+
+
+using std::string, std::cout, std::endl, std::cerr;
+using namespace cv;
+namespace fs = std::filesystem;  // Alias para el espacio de nombres
+
+
+class nodos
+{
+
+    string valor; // Valor de la estructura
+    nodos *siguiente; // Puntero siguiente
+    friend class Cola; // Comparte datos con la clase Cola
+    friend class Pila; //Comparte datos con la clase Pila
 public:
-    Nodo(int vv, Nodo *sig = NULL) { //Constructor de Nodo
-        valor = vv;
+    nodos(string v, nodos *sig = NULL) // Composicion y creaci�n del nodo
+    {
+        valor = v;
         siguiente = sig;
     }
 };
-typedef Nodo *pNodo;
 
+typedef nodos *pNodos; // Definimos el tipo nodos como puntero
 
 
 #endif //NODOPILAS_H
+

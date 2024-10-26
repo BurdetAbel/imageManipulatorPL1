@@ -5,13 +5,18 @@
 #include "menu.h"
 
 
-
+#include <opencv2/core.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>  // Para la función cvtColor
 #include <iostream>
-#include <vector>
+#include <filesystem>
 
-
+using std::string, std::cout, std::endl, std::cerr;
 using std::cout; using std::cin; using std::endl;
 const int minimum = 0, maximum = 10;
+namespace fs = std::filesystem;  // Alias para el espacio de nombres
+using namespace cv;
 
 void modificarImagen(int tipo);
 void aplicarEdicion(int edicion);
@@ -19,6 +24,10 @@ void aplicarEdicion(int edicion);
 void mostrarMenu() {
 
     int opcionTipo, opcionEdicion, img_especifica, img_seleccionada;
+
+    string image_path;
+    Mat img;
+
     do{
         cout << "Seleccione la cantidad de imagenes a editar:" << endl;
 
@@ -35,6 +44,7 @@ void mostrarMenu() {
         cin >> opcionTipo;
 
 
+
         switch (opcionTipo) {
             case 1:
                 cout << "Selecciona modificar una imagen especifica (entre 1 y 25)." << endl;
@@ -44,7 +54,14 @@ void mostrarMenu() {
                     cout << "\n El numero " << img_especifica << " no corresponde a ninguna imagen." << endl;
                 else
                     int img_selccionada = img_especifica;
-                break;
+                    image_path = "C:/Users/abelb/Downloads/displayImage (1)/displayImage/images8k/" + std::to_string(img_especifica) + ".jpg";
+                    img = imread(image_path, IMREAD_COLOR);
+
+                    imshow("Original Image", img);
+                    waitKey(0); // Esperar una tecla para cerrar las ventanas
+
+
+            break;
 
             case 2:
                 cout << "Has seleccionado modificar varias imagenes." << endl;
@@ -91,6 +108,7 @@ void mostrarMenu() {
                 cout << "Has seleccionado modificar las imágenes pares." << endl;
 
                 break;
+
             case 6:
                 cout << "Has seleccionado mostrar todas las imágenes." << endl;
                 break;
