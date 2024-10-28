@@ -103,24 +103,6 @@ build CMakeFiles\imageManipulatorPL1.dir\pila.cpp.obj: CXX_COMPILER__imageManipu
   TARGET_PDB = imageManipulatorPL1.pdb
   dyndep = CMakeFiles/imageManipulatorPL1.dir/CXX.dd
 
-build CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj.ddi: CXX_SCAN__imageManipulatorPL1_Debug C$:\Users\abelb\CLionProjects\imageManipulatorPL1\filtros.cpp || cmake_object_order_depends_target_imageManipulatorPL1
-  DEP_FILE = CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj.ddi.d
-  DYNDEP_INTERMEDIATE_FILE = CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj.ddi
-  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++latest -MDd -Zi
-  INCLUDES = -Ic:\tools\opencv\build\include -external:IC:\tools\opencv\build\include -external:W0
-  OBJ_FILE = CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj
-  PREPROCESSED_OUTPUT_FILE = CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj.ddi.i
-
-build CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj: CXX_COMPILER__imageManipulatorPL1_scanned_Debug C$:\Users\abelb\CLionProjects\imageManipulatorPL1\filtros.cpp | CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj.modmap || cmake_object_order_depends_target_imageManipulatorPL1 CMakeFiles\imageManipulatorPL1.dir\CXX.dd
-  DYNDEP_MODULE_MAP_FILE = CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj.modmap
-  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++latest -MDd -Zi
-  INCLUDES = -Ic:\tools\opencv\build\include -external:IC:\tools\opencv\build\include -external:W0
-  OBJECT_DIR = CMakeFiles\imageManipulatorPL1.dir
-  OBJECT_FILE_DIR = CMakeFiles\imageManipulatorPL1.dir
-  TARGET_COMPILE_PDB = CMakeFiles\imageManipulatorPL1.dir\
-  TARGET_PDB = imageManipulatorPL1.pdb
-  dyndep = CMakeFiles/imageManipulatorPL1.dir/CXX.dd
-
 build CMakeFiles\imageManipulatorPL1.dir\colas.cpp.obj.ddi: CXX_SCAN__imageManipulatorPL1_Debug C$:\Users\abelb\CLionProjects\imageManipulatorPL1\colas.cpp || cmake_object_order_depends_target_imageManipulatorPL1
   DEP_FILE = CMakeFiles\imageManipulatorPL1.dir\colas.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\imageManipulatorPL1.dir\colas.cpp.obj.ddi
@@ -229,7 +211,7 @@ build CMakeFiles\imageManipulatorPL1.dir\funciones.cpp.obj: CXX_COMPILER__imageM
   TARGET_PDB = imageManipulatorPL1.pdb
   dyndep = CMakeFiles/imageManipulatorPL1.dir/CXX.dd
 
-build CMakeFiles\imageManipulatorPL1.dir\CXX.dd | C$:\Users\abelb\CLionProjects\imageManipulatorPL1\cmake-build-debug\CMakeFiles\imageManipulatorPL1.dir\CXXModules.json CMakeFiles\imageManipulatorPL1.dir\main.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\menu.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\pila.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\colas.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\listas.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\nodoPilas.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\nodoListas.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\nodoColas.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\funciones.cpp.obj.modmap: CXX_DYNDEP__imageManipulatorPL1_Debug CMakeFiles\imageManipulatorPL1.dir\main.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\menu.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\pila.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\colas.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\listas.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\nodoPilas.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\nodoListas.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\nodoColas.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\funciones.cpp.obj.ddi | C$:\Users\abelb\CLionProjects\imageManipulatorPL1\cmake-build-debug\CMakeFiles\imageManipulatorPL1.dir\CXXDependInfo.json
+build CMakeFiles\imageManipulatorPL1.dir\CXX.dd | C$:\Users\abelb\CLionProjects\imageManipulatorPL1\cmake-build-debug\CMakeFiles\imageManipulatorPL1.dir\CXXModules.json CMakeFiles\imageManipulatorPL1.dir\main.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\menu.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\pila.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\colas.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\listas.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\nodoPilas.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\nodoListas.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\nodoColas.cpp.obj.modmap CMakeFiles\imageManipulatorPL1.dir\funciones.cpp.obj.modmap: CXX_DYNDEP__imageManipulatorPL1_Debug CMakeFiles\imageManipulatorPL1.dir\main.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\menu.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\pila.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\colas.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\listas.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\nodoPilas.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\nodoListas.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\nodoColas.cpp.obj.ddi CMakeFiles\imageManipulatorPL1.dir\funciones.cpp.obj.ddi | C$:\Users\abelb\CLionProjects\imageManipulatorPL1\cmake-build-debug\CMakeFiles\imageManipulatorPL1.dir\CXXDependInfo.json
 
 
 # =============================================================================
@@ -239,7 +221,7 @@ build CMakeFiles\imageManipulatorPL1.dir\CXX.dd | C$:\Users\abelb\CLionProjects\
 #############################################
 # Link the executable imageManipulatorPL1.exe
 
-build imageManipulatorPL1.exe: CXX_EXECUTABLE_LINKER__imageManipulatorPL1_Debug CMakeFiles\imageManipulatorPL1.dir\main.cpp.obj CMakeFiles\imageManipulatorPL1.dir\menu.cpp.obj CMakeFiles\imageManipulatorPL1.dir\pila.cpp.obj CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj CMakeFiles\imageManipulatorPL1.dir\colas.cpp.obj CMakeFiles\imageManipulatorPL1.dir\listas.cpp.obj CMakeFiles\imageManipulatorPL1.dir\nodoPilas.cpp.obj CMakeFiles\imageManipulatorPL1.dir\nodoListas.cpp.obj CMakeFiles\imageManipulatorPL1.dir\nodoColas.cpp.obj CMakeFiles\imageManipulatorPL1.dir\funciones.cpp.obj | C$:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib C$:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib C$:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib C$:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib
+build imageManipulatorPL1.exe: CXX_EXECUTABLE_LINKER__imageManipulatorPL1_Debug CMakeFiles\imageManipulatorPL1.dir\main.cpp.obj CMakeFiles\imageManipulatorPL1.dir\menu.cpp.obj CMakeFiles\imageManipulatorPL1.dir\pila.cpp.obj CMakeFiles\imageManipulatorPL1.dir\colas.cpp.obj CMakeFiles\imageManipulatorPL1.dir\listas.cpp.obj CMakeFiles\imageManipulatorPL1.dir\nodoPilas.cpp.obj CMakeFiles\imageManipulatorPL1.dir\nodoListas.cpp.obj CMakeFiles\imageManipulatorPL1.dir\nodoColas.cpp.obj CMakeFiles\imageManipulatorPL1.dir\funciones.cpp.obj | C$:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib C$:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib C$:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib C$:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -MDd -Zi
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = C:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib  C:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib  C:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib  C:\tools\opencv\build\x64\vc16\lib\opencv_world4100d.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
