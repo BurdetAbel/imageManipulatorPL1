@@ -23,12 +23,12 @@ namespace fs = std::filesystem;  // Alias para el espacio de nombres
 class nodos
 {
 
-    string valor; // Valor de la estructura
+    Mat valor; // Valor de la estructura
     nodos *siguiente; // Puntero siguiente
     friend class Cola; // Comparte datos con la clase Cola
     friend class Pila; //Comparte datos con la clase Pila
 public:
-    nodos(string v, nodos *sig = NULL) // Composicion y creaci�n del nodo
+    nodos(Mat v, nodos *sig = NULL) // Composicion y creacion del nodo
     {
         valor = v;
         siguiente = sig;

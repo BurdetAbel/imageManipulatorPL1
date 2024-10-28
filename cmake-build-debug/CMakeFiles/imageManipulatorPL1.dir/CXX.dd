@@ -5,8 +5,6 @@ build CMakeFiles\imageManipulatorPL1.dir\menu.cpp.obj: dyndep
 
 build CMakeFiles\imageManipulatorPL1.dir\pila.cpp.obj: dyndep
 
-build CMakeFiles\imageManipulatorPL1.dir\filtros.cpp.obj: dyndep
-
 build CMakeFiles\imageManipulatorPL1.dir\colas.cpp.obj: dyndep
 
 build CMakeFiles\imageManipulatorPL1.dir\listas.cpp.obj: dyndep

@@ -6,6 +6,5 @@
 
 int main(){
     mostrarMenu();
-    std::cout << "Iniciando programa..." << std::endl;
     return 0;
 }

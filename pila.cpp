@@ -16,8 +16,9 @@ Pila::~Pila()
 //---------------------------------------------------------------------------------------------------------------------------------------
 
 // Meter elemento en la Pila
-void Pila::apilar(string v)
+void Pila::apilar(Mat v)
 {
+    cout << "apilando" << endl;
     pNodos nuevo; //Var aux para manipular el nuevo nodo
 
     //Se crea un nodo nuevo
@@ -30,13 +31,16 @@ void Pila::apilar(string v)
 //---------------------------------------------------------------------------------------------------------------------------------------
 
 // Sacar elemento de la Pila
-string Pila::desapilar()
+Mat Pila::desapilar()
 {
+    cout << "desapilando" << endl;
     pNodos nodo; // Var aux para manipular el nodo
-    string v; // Var aux para el retorno del valor del nodo
+    Mat v; // Var aux para el retorno del valor del nodo
 
 
-    if(!cima) return v = "No se pudo leer la imagen"; // Si no hay nodos en la pila se devuelve 0
+    string imagen_path_error;
+    imagen_path_error = "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/errorimg.jpg";
+    if(!cima) return imread(imagen_path_error); // Si no hay nodos en la pila se devuelve 0
 
     // Nodo apunta al primer elemento de la pila
     nodo = cima;
@@ -61,7 +65,7 @@ void Pila::mostrarCima()
     cout<<"-------------------------------"<<endl;
     if(!cima) cout << "Esta vacia" << endl;
     else{
-        cout << "vehiculo: ";
+        cout << "imagen: ";
         imshow("imagen", cima->valor);
         }
 }
@@ -82,17 +86,6 @@ bool Pila::es__pila_vacia()
     return b;
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------
-
-// Devuelve la zona del vehiculo de la pila que reciba
-string Pila::DarZonaVehiculo(Pila c)
-{
-    Pila camion = c;
-    string coches = camion.desapilar();
-    string zona = coches.zona;
-
-    return zona;
-}
 //---------------------------------------------------------------------------------------------------------------------------------------
 
 /*

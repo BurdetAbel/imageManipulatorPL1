@@ -21,11 +21,10 @@ private:
 public:
     Pila() : cima(NULL) {}       // Constructor de Pila:  -> pila
     ~Pila();                     // Destructor de pila:  pila -> void
-    void apilar(string v);     // Apilar elemento: elemento pila -> pila(devuelve un void pero el resultado interno es que modifica la pila que le das)
-    string desapilar();        // Desapilar pila: pila -> elemento
+    void apilar(Mat v);     // Apilar elemento: elemento pila -> pila(devuelve un void pero el resultado interno es que modifica la pila que le das)
+    Mat desapilar();        // Desapilar pila: pila -> elemento
     void mostrarCima();          // Mostrar cima : pila -> elemento
     bool es__pila_vacia();       // Es_pila_vacia?: pila -> bool
-    string DarZonaVehiculo(Pila c); // DarZonaVehiculo: pila -> string
 };
 
 #endif // PILA_H

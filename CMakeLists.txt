@@ -15,8 +15,6 @@ add_executable(imageManipulatorPL1 main.cpp
         menu.h
         pila.cpp
         pila.h
-        filtros.cpp
-        filtros.h
         colas.cpp
         colas.h
         listas.cpp
