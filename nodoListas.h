@@ -1,14 +1,17 @@
 //
 // Created by abelb on 24/10/2024.
 //
-
 /*
+#include "funciones.h"
+#include <opencv2/core.hpp>
+
+
 #ifndef NODOLISTAS_H
 #define NODOLISTAS_H
 
 
 
-typedef int Dato;
+typedef Mat Dato;
 // archivo de cabecera Nodo.h
 #ifndef _NODO_H
 #define _NODO_H

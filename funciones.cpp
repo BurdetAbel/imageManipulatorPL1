@@ -2,6 +2,7 @@
 // Created by abelb on 26/10/2024.
 //
 
+#include <list>
 #include "funciones.h"
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/highgui.hpp"
@@ -10,6 +11,7 @@
 #include <opencv2/core.hpp>
 #include <filesystem>
 #include <opencv2/imgproc.hpp>
+#include <stack>
 
 // we're NOT "using namespace std;" here, to avoid collisions between the beta variable and std::beta in c++17
 using std::string, std::cout, std::endl, std::cerr;
@@ -36,8 +38,8 @@ Mat Funciones::rotarImagen(Mat rotarimg) {
 
     while (true) {
         cout << " Rotacion imagen " << endl;
-        cout << "-------------------------" << endl;
-        cout << "* Introduzca tipo de rotacion  (90°, 180°, 270°, 360°): "; cin >> grados;
+        cout << "----------------------" << endl;
+        cout << "* Introduzca tipo de rotacion  (90, 180, 270, 360): "; cin >> grados;
 
         if ((grados!=90)&&(grados!=180)&&(grados!=270)&&(grados!=360)) {
 
@@ -51,6 +53,7 @@ Mat Funciones::rotarImagen(Mat rotarimg) {
 
     }
 
+
     if(grados == 90) {
         rotate(rotarimg, rotate_img, ROTATE_90_CLOCKWISE);
     } else if(grados == 180) {
@@ -60,7 +63,7 @@ Mat Funciones::rotarImagen(Mat rotarimg) {
     } else if  (grados == 360) {
         rotate_img = rotarimg;
     } else {
-        cout<<"!! La opcion elegida no es valida !!" <<endl;
+        cout<<"!! La opcion elegida no es valida !!" << endl;
     }
 
     return rotate_img;
@@ -152,13 +155,14 @@ Mat Funciones::desenfocarImagen(Mat desenfocImg) {
 
     while (true) {
         cout << " ------------------------" << endl;
-        cout << "*** Cambios en la intensidad de los pixeles (ej: 50x50): " << endl;
+        cout << "*** Cambios en la intensidad de los pixeles (ej: 81x73): " << endl;
         cout << "*** NOTA *** : Cuanto mayor sean los gradientes --> imagen mas desenfocada" << endl;
+        cout << "*** NOTA *** Los gradientes deben ser impares y positivos:  " << endl;
 
         cout << "* Introduzca gradientes (horizontalmente): "; cin >> width1;
         cout << "* Introduzca gradientes (verticalmente): "; cin >> height1;
 
-        if ((width1 < 0 )||(height1 < 0)){
+        if ((width1 < 0 )||(height1 < 0)||(width1 % 2 == 0 )||(height1 % 2 == 0)){
             cout << "\n**** Los gradientes introducidos son incorrectos." << endl;
 
         } else {
@@ -216,11 +220,11 @@ Mat Funciones::recortarImagen(Mat recortimg) {
         cout << "Se extiende 200 pix. hacia la derecha y 200 pix. hacia abajo" << endl;
         cout << "Se forma una imagen de 200 x 200 pixeles" << endl;
 
-
-        cout << "* Introduzca posicion x1 (inicial): "; cin >> pos1;
-        cout << "* Introduzca posicion y1 (inicial): "; cin >> pos2;
-        cout << "* Introduzca anchura extension x2: "; cin >> exten1;
-        cout << "* Introduzca altura extension y2: "; cin >> exten2;
+        cout << "****** NOTA: Siguiendo el ejemplo comenzaras aprox. desde el centro de la imagen a recortar";
+        cout << "* Introduzca posicion x1 (inicial) (Ej: 1700): "; cin >> pos1;
+        cout << "* Introduzca posicion y1 (inicial) (Ej: 980): "; cin >> pos2;
+        cout << "* Introduzca anchura extension x2 (300): "; cin >> exten1;
+        cout << "* Introduzca altura extension y2: (200)"; cin >> exten2;
 
         if ((pos1 < 0 )||(pos2 < 0)||(exten1 < 0 )||(exten2 < 0)){
             cout << "\n**** Los valores introducidos son incorrectos." << endl;
@@ -327,20 +331,136 @@ Mat Funciones::invertirImg(Mat inverted) {
     return invertedImage;
 }
 
-/*
 
-Mat Funciones::posicion(Mat ventana, string name_vent, int pos1, int pos2) {
+void Funciones::mostrarImagen(string name_vent, int width, int height) {
 
     Mat img_reducidd;
+    Mat ventana;
     //Esta funcion se encarga de reducir y posicionar la imagen
     ventana = imread(name_vent, IMREAD_COLOR);
-    resize(ventana, img_reducidd, Size((1200), (628)), 0, 0, INTER_NEAREST); //1200x628 tamaño collage final
+    resize(ventana, img_reducidd, Size((width), (height)), 0, 0, INTER_NEAREST); //1200x628 tamaño collage final
 
     namedWindow(name_vent, WINDOW_NORMAL);
     imshow(name_vent, img_reducidd);
     setWindowProperty(name_vent, WND_PROP_TOPMOST, 1); // Mantener la ventana siempre encima
-    //  moveWindow("Catalogo", 1400, 600);
-    waitKey(1); // Permite actualizar la ventana sin detener el programa principal
+    //moveWindow(name_vent, pos1, pos2);
+    waitKey(0); // Permite actualizar la ventana sin detener el programa principal
 
 }
-*/
+
+
+Mat Funciones::createCollage(int gridRows, int gridCols, int collageWidth, int collageHeight, const string folderPath) {
+    std::list<string> imagePaths;
+
+    // Agregar las imágenes numeradas (imagen1.jpg, imagen2.jpg, ..., imagen25.jpg) a la lista
+    for (int i = 1; i <= 25; ++i) {
+        std::ostringstream oss;
+        oss << folderPath << i << ".jpg";
+        imagePaths.push_back(oss.str());
+    }
+
+    int cellWidth = collageWidth / gridCols;  // Ancho de cada celda
+    int cellHeight = collageHeight / gridRows; // Altura de cada celda
+
+    // Crear una imagen vacía con el tamaño del collage
+    Mat collage = Mat::zeros(collageHeight, collageWidth, CV_8UC3);
+
+    // Iterador para recorrer las rutas de imagen en la lista
+    auto it = imagePaths.begin();
+
+    // Iterar a través de las imágenes y colocarlas en el collage
+    for (int i = 0; i < gridRows && it != imagePaths.end(); ++i) {
+        for (int j = 0; j < gridCols && it != imagePaths.end(); ++j) {
+            // Leer y redimensionar la imagen
+            Mat img = imread(*it);
+            if (img.empty()) {
+                cerr << "Error: No se pudo cargar la imagen " << *it << endl;
+                ++it;
+                continue;
+            }
+            resize(img, img, Size(cellWidth, cellHeight));
+
+            // Colocar la imagen en la cuadrícula
+            img.copyTo(collage(Rect(j * cellWidth, i * cellHeight, cellWidth, cellHeight)));
+
+            // Avanzar al siguiente elemento en la lista
+            ++it;
+        }
+    }
+
+    return collage;
+}
+
+Mat Funciones::createCollageEdit(std::stack<Mat> pilaImagenes) {
+    const int collageWidth = 1200; // Ancho total del collage
+    const int collageHeight = 628; // Altura total del collage
+    const int gridRows = 5; // Número de filas en el collage
+    const int gridCols = 5; // Número de columnas en el collage
+
+    const int cellWidth = collageWidth / gridCols; // Ancho de cada imagen en la cuadrícula
+    const int cellHeight = collageHeight / gridRows; // Altura de cada imagen en la cuadrícula
+
+    // Crear una imagen en blanco para el collage con el tamaño 1200x650
+    Mat collage(collageHeight, collageWidth, CV_8UC3, Scalar(255, 255, 255));
+
+    // Crear un vector temporal para almacenar las imágenes de la pila en orden inverso
+    std::vector<Mat> imagenes;
+
+    // Extraer las imágenes de la pila y agregarlas al vector (para acceder en orden inverso)
+    while (!pilaImagenes.empty()) {
+        imagenes.push_back(pilaImagenes.top());
+        pilaImagenes.pop();
+    }
+
+    // Invertir el vector para que las imágenes estén en el orden deseado
+    std::reverse(imagenes.begin(), imagenes.end());
+
+    // Asegurarse de que hay suficientes imágenes para el collage (rellenar si es necesario)
+    while (imagenes.size() < gridRows * gridCols) {
+        imagenes.push_back(Mat::zeros(cellHeight, cellWidth, CV_8UC3)); // Imagen vacía si faltan
+    }
+
+    // Llenar el collage con las imágenes redimensionadas
+    for (int i = 0; i < gridRows; ++i) {
+        for (int j = 0; j < gridCols; ++j) {
+            int idx = i * gridCols + j;
+            Mat imgResized;
+
+            // Verificar si hay una imagen válida en la posición
+            if (idx < imagenes.size()) {
+                // Convertir a BGR si es escala de grises
+                if (imagenes[idx].channels() == 1) {
+                    cvtColor(imagenes[idx], imagenes[idx], COLOR_GRAY2BGR);
+                }
+
+                // Redimensionar la imagen al tamaño de la celda del collage
+                resize(imagenes[idx], imgResized, Size(cellWidth, cellHeight));
+            } else {
+                imgResized = Mat::zeros(cellHeight, cellWidth, CV_8UC3); // Rellenar con imagen vacía
+            }
+
+            // Insertar la imagen redimensionada en su posición correspondiente en el collage
+            imgResized.copyTo(collage(Rect(j * cellWidth, i * cellHeight, cellWidth, cellHeight)));
+        }
+    }
+    return collage;
+}
+
+void Funciones::guardarImagen(Mat collage, string output_path, string formato) {
+    // Verificar si el directorio de salida existe, y si no, crearlo
+    if (!fs::exists(output_path)) {
+        cout << "El directorio no existe, creando: " << output_path << endl;
+        fs::create_directories(output_path);
+    }
+
+    // Crear el nombre de archivo con la extensión especificada
+    string nombreArchivo = "collage_final" + formato;
+    string rutaCompleta = output_path + nombreArchivo;
+
+    // Guardar el collage en el archivo especificado
+    if (imwrite(rutaCompleta, collage)) {
+        cout << "Collage guardado correctamente en " << rutaCompleta << endl;
+    } else {
+        cerr << "Error al guardar el collage en " << rutaCompleta << endl;
+    }
+}

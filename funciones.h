@@ -11,6 +11,7 @@
 #include <opencv2/imgproc.hpp>  // Para la función cvtColor
 #include <iostream>
 #include <filesystem>
+#include <stack>
 
 using std::string, std::cout, std::endl, std::cerr;
 using namespace cv;
@@ -30,10 +31,10 @@ class Funciones {
         static Mat anadirBordes(Mat bordimg);
         static Mat invertirImg(Mat inverted);
         static Mat anadirNitidez(Mat sharped);
-        //static Mat posicion(Mat ventana, string name_vent, int pos1, int pos2);
-
-
-
+        static Mat createCollage(int gridRows, int gridCols, int collageWidth, int collageHeight, string folderPath);
+        static void mostrarImagen(string name_vent, int width, int height);
+        static Mat createCollageEdit(std::stack<Mat> pilaImagenes);
+        static void guardarImagen(Mat collage, string output_path, string formato);
 };
 
 
