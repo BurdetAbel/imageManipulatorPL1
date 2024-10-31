@@ -9,8 +9,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
-#include <opencv2/imgproc.hpp>  // Para la función cvtColor
-#include <sys/stat.h>
+#include <opencv2/imgproc.hpp>
 #include <queue>
 #include <iostream>
 #include <list>
@@ -20,7 +19,7 @@
 using std::string, std::cout, std::endl, std::cerr;
 using std::cout; using std::cin; using std::endl;
 const int minimum = 0, maximum = 10;
-namespace fs = std::filesystem;  // Alias para el espacio de nombres
+namespace fs = std::filesystem;
 using namespace cv;
 
 void modificarImagen(int tipo);
@@ -35,7 +34,7 @@ void mostrarMenu() {
     std::list<int> imagenes_cant; // Lista para almacenar iamgenes seleccionadas
     std::stack<Mat> pilaImagenesOriginales; //Pila para almacenar las imágenes originales
     stack<Mat> pilaImagenesEditadas; // Pila para almacenar las imágenes editadas junto con las no editadas
-    std::queue<int> colaImagenes; // Añadir una cola para almacenar las imágenes seleccionadas
+    std::queue<int> colaImagenes; // Cola para almacenar las imágenes seleccionadas
     String folderPath = "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/";
 
 //---------------------------------------------------------------------------------------------------------------------------------------
@@ -76,27 +75,28 @@ void mostrarMenu() {
 
 //---------------------------------------------------------------------------------------------------------------------------------------
 
+    // Mostrar COLLAGE al iniciar
     collage2 = Funciones::createCollageEdit(pilaImagenesOriginales);
     Funciones::mostrarImagen2(collage2, "Collage original");
 
 //---------------------------------------------------------------------------------------------------------------------------------------
 
     do {
-        cout << " --------------------------------" << endl;
-        cout << " ::  Menu para editar imagenes ::" << endl;
-        cout << " --------------------------------" << endl;
+        cout << " --------------------------------                   ::  ::  ::  ::  ::  ::  ::  ::  ::" << endl;
+        cout << " ::  Menu para editar imagenes ::                     ::  ::  ::  ::  ::  ::  ::  ::  " << endl;
+        cout << " --------------------------------                   ::  ::  ::  ::  ::  ::  ::  ::  ::" << endl;
 
-        cout << "\n1. Modificar una imagen especifica" << endl;
-        cout << "2. Modificar varias imagenes" << endl;
-        cout << "3. Modificar todas las imagenes" << endl;
-        cout << "4. Modificar solamente las imagenes Impares"<< endl;
-        cout << "5. Modificar solamente las imagenes Pares"<< endl;
-        cout << "6. Mostrar Imagenes ORIGINALES (Collage)"<< endl; // Collage con las fotos originales
-        cout << "7. Mostrar Imagenes EDITADAS (Collage)" << endl; // Collage con las fotos editadas
-        cout << "8. Mostrar CATALOGO imagenes"<< endl; // Imagenes con su nombre (mismo orden y posicion que en collage)
-        cout << "9. Guardar >>> COLLAGE IMAGENES EDITADAS"<< endl; // Imagenes con su nombre
-        cout << "0. Salir ::::::: [EXIT] :::::::"<< endl;
-        cout << " --------------------------------" << endl;
+        cout << "\n   :::::::       1. Modificar una imagen especifica" << endl;
+        cout << "   :: O ::       2. Modificar varias imagenes" << endl;
+        cout << "   :: P ::       3. Modificar todas las imagenes" << endl;
+        cout << "   :: C ::       4. Modificar solamente las imagenes Impares"<< endl;
+        cout << "   :: I ::       5. Modificar solamente las imagenes Pares"<< endl;
+        cout << "   :: O ::       6. Mostrar Imagenes ORIGINALES (Collage)"<< endl; // Collage con las fotos originales
+        cout << "   :: N ::       7. Mostrar Imagenes EDITADAS (Collage)" << endl; // Collage con las fotos editadas
+        cout << "   :: E ::       8. Mostrar CATALOGO imagenes"<< endl; // Imagenes con su nombre (mismo orden y posicion que en collage)
+        cout << "   :: S ::       9. Guardar >>> COLLAGE IMAGENES EDITADAS"<< endl; // Imagenes con su nombre
+        cout << "   :::::::       0. Salir ::::::: [EXIT] :::::::"<< endl;
+        cout << " ----------------------------------------------------------------" << endl;
 
 
         cout << "\n>>>>> Introduzca su opcion: ";
@@ -232,9 +232,9 @@ void mostrarMenu() {
 
             case 0:
                 cout << "---------------------------------------------------------------------------------------------" << endl;
-                cout << "::::::::::::::::::::::::::::::::     ::              ::     :::::::::::::::::::::::::::::::::" << endl;
-                cout << ":::   Cerrando programa...   :::            ::::            ::::::::::   ADIOS!!   ::::::::::" << endl;
-                cout << "::::::::::::::::::::::::::::::::     ::              ::     :::::::::::::::::::::::::::::::::" << endl;
+                cout << "::::::::::::::::::::::::::::::::     ::     ___      ::      :::::::::::::::::::::::::::::::::" << endl;
+                cout << ":::   Cerrando programa...   :::           |^_^|             :::::::::   ADIOS!!   ::::::::::" << endl;
+                cout << "::::::::::::::::::::::::::::::::     ::              ::      :::::::::::::::::::::::::::::::::" << endl;
                 cout << "---------------------------------------------------------------------------------------------" << endl;
 
             break;
@@ -247,21 +247,21 @@ void mostrarMenu() {
 //---------------------------------------------------------------------------------------------------------------------------------------
 
         if ((opcionTipo == 1)||(opcionTipo == 2)||(opcionTipo == 3)||(opcionTipo == 4)||(opcionTipo == 5)){
-            cout << "\n-------------------------" << endl;
-            cout << "  :: Seleccione edicion ::" << endl;
-            cout << "-------------------------" << endl;
+            cout << "\n---------------------------                 ::  ::  ::  ::  ::  ::  ::  ::  ::" << endl;
+            cout << "  :: Seleccione edicion ::                    ::  ::  ::  ::  ::  ::  ::  ::  " << endl;
+            cout << "---------------------------                 ::  ::  ::  ::  ::  ::  ::  ::  ::" << endl;
 
-            cout << "\n1. Rotar --> (90, 180, 270, 360) [grados]" << endl;
-            cout << "2. Filtro Escala de grises" << endl;
-            cout << "3. Desenfocar" << endl;
-            cout << "4. Modificar Brillo/Contraste"<< endl;
-            cout << "5. Escalar"<< endl;
-            cout << "6. Recortar"<< endl;
-            cout << "7. Marcos/Bordes"<< endl;
-            cout << "8. Invertir"<< endl;
-            cout << "9. Nitidez" << endl;
-            cout << "0. Salir ::::::: [EXIT] :::::::" << endl;
-            cout << "------------------------" << endl;
+            cout << "\n   :::::::       1. Rotar --> (90, 180, 270, 360) [grados]" << endl;
+            cout << "   :: O ::       2. Filtro Escala de grises" << endl;
+            cout << "   :: P ::       3. Desenfocar" << endl;
+            cout << "   :: C ::       4. Modificar Brillo/Contraste"<< endl;
+            cout << "   :: I ::       5. Escalar"<< endl;
+            cout << "   :: O ::       6. Recortar"<< endl;
+            cout << "   :: N ::       7. Marcos/Bordes"<< endl;
+            cout << "   :: E ::       8. Invertir"<< endl;
+            cout << "   :: S ::       9. Nitidez" << endl;
+            cout << "   :::::::       0. Salir ::::::: [EXIT] :::::::" << endl;
+            cout << "-------------------------------------------------------------" << endl;
 
             cout << "\n>>>> Introduzca su opcion: ";
             cin >> opcionEdicion;
@@ -272,8 +272,9 @@ void mostrarMenu() {
             // Variables funcion rotar
             int grados;
             if (opcionEdicion == 1) {
+                cout << "-----------------" << endl;
                 cout << " Rotacion imagen " << endl;
-                cout << "----------------------" << endl;
+                cout << "-----------------" << endl;
                 cout << "* Introduzca tipo de rotacion (90, 180, 270, 360): ";
                 cin >> grados;
                 if (grados != 90 && grados != 180 && grados != 270 && grados != 360) {
@@ -399,6 +400,7 @@ void mostrarMenu() {
 
             // Iterar sobre todas las imágenes seleccionadas para aplicar la edición
             // Bucle for para lista imagenes seleccionadas para editar
+
             for (int numeroImagen:imagenes_cant) {
                 colaImagenes.push(numeroImagen);
             }
@@ -409,7 +411,7 @@ void mostrarMenu() {
                 colaImagenes.pop();
 
                 string image_path = "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/"+ std::to_string(numeroImagen) +".jpg";
-                Mat img = imread(image_path, IMREAD_COLOR);
+                img = imread(image_path, IMREAD_COLOR);
 
 
                 if (img.empty()) {
@@ -496,9 +498,7 @@ void mostrarMenu() {
                     imshow("Imagen Editada", imgEditada);
                     waitKey(0); // Esperar una tecla para cerrar las ventanas
                 }
-
             }
-
         }
     }while (opcionTipo != 0);
 }
