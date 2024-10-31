@@ -11,6 +11,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>  // Para la función cvtColor
 #include <sys/stat.h>
+#include <queue>
 #include <iostream>
 #include <list>
 #include <stack>
@@ -26,31 +27,29 @@ void modificarImagen(int tipo);
 void aplicarEdicion(int edicion);
 
 void mostrarMenu() {
-    int opcionTipo, opcionEdicion, img_especifica, img_seleccionada;
 
+    /// VARIABLES ///
+    int cantidad, opcionTipo, opcionEdicion, img_especifica, opcion;
     string image_path,img_catalogo, formato, output_path;
-    Mat ejemplomat;
-    Mat img, gray, rotat,escala, desenfc, contrast, recorte, border,invert, sharp, img2;
-    Pila ejemplo, imgGris, imgRotada, imgEscala, imgDesenfc, imgContrast, imgRecorte, imgBorder, imgInvert, imgSharp;
-    Mat collage2, collage1;
-    int cantidad;
-    std::list<int> imagenes_cant;
+    Mat img, imgEditada, collage1, collage2;
+    std::list<int> imagenes_cant; // Lista para almacenar iamgenes seleccionadas
     std::stack<Mat> pilaImagenesOriginales; //Pila para almacenar las imágenes originales
     stack<Mat> pilaImagenesEditadas; // Pila para almacenar las imágenes editadas junto con las no editadas
-    Pila pilaRotada, pilaGris, pilaDesenfocada, pilaBrilloContraste, pilaEscalada, pilaRecortada, pilaBordes, pilaInvertida, pilaNitidez;
-
+    std::queue<int> colaImagenes; // Añadir una cola para almacenar las imágenes seleccionadas
     String folderPath = "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/";
+
 //---------------------------------------------------------------------------------------------------------------------------------------
 
-    cout << "     ::::::::::::::::::::::::::::::::::::::::::::::" << endl;
-    cout << "     :::::::     MANIPULADOR DE IMAGENES     ::::::" << endl;
-    cout << "     ::::::::::::::::::::::::::::::::::::::::::::::" << endl;
-    cout << "     :::: ABEL BURDET ::::::: CRISTIAN JIMENEZ ::::" << endl;
-    cout << "     ::::: X9844318L :::::::::: 51495888S :::::::::" << endl;
-    cout << "     ::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+    cout << "   ::::::::::::::::::::::::::::::::::::::::::::::    ::::::::::::::::::    :::::::::::::::::::::::::::" << endl;
+    cout << "   :::::::     MANIPULADOR DE IMAGENES     ::::::    :::::   __   :::::    ::::::  BIENVENIDO!  ::::::" << endl;
+    cout << "   ::::::::::::::::::::::::::::::::::::::::::::::    :::    |__|    :::    :::::::::::::::::::::::::::" << endl;
+    cout << "   :::: ABEL BURDET ::::::: CRISTIAN JIMENEZ ::::    :::   __||__   :::    ::::: Tenga paciencia :::::" << endl;
+    cout << "   ::::: X9844318L ::::::::::: 51495888S ::::::::    :::::  _||_  :::::    :::: mientras carga... ::::" << endl;
+    cout << "   ::::::::::::::::::::::::::::::::::::::::::::::    ::::::::::::::::::    :::::::::::::::::::::::::::" << endl;
 
     cout << "\n******** Iniciando..." << endl;
 
+//---------------------------------------------------------------------------------------------------------------------------------------
 
     // Inicializar la pila con imágenes originales
     for (int i = 1; i <= 25; ++i) {
@@ -74,6 +73,12 @@ void mostrarMenu() {
         // Agregar la imagen cargada a la pila
         pilaImagenesOriginales.push(img);
     }
+
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+    collage2 = Funciones::createCollageEdit(pilaImagenesOriginales);
+    Funciones::mostrarImagen2(collage2, "Collage original");
+
 //---------------------------------------------------------------------------------------------------------------------------------------
 
     do {
@@ -88,7 +93,7 @@ void mostrarMenu() {
         cout << "5. Modificar solamente las imagenes Pares"<< endl;
         cout << "6. Mostrar Imagenes ORIGINALES (Collage)"<< endl; // Collage con las fotos originales
         cout << "7. Mostrar Imagenes EDITADAS (Collage)" << endl; // Collage con las fotos editadas
-        cout << "8. Mostrar catalogo IMAGENES"<< endl; // Imagenes con su nombre (mismo orden y posicion que en collage)
+        cout << "8. Mostrar CATALOGO imagenes"<< endl; // Imagenes con su nombre (mismo orden y posicion que en collage)
         cout << "9. Guardar >>> COLLAGE IMAGENES EDITADAS"<< endl; // Imagenes con su nombre
         cout << "0. Salir ::::::: [EXIT] :::::::"<< endl;
         cout << " --------------------------------" << endl;
@@ -97,12 +102,10 @@ void mostrarMenu() {
         cout << "\n>>>>> Introduzca su opcion: ";
         cin >> opcionTipo;
 
-
+//---------------------------------------------------------------------------------------------------------------------------------------
 
         switch (opcionTipo) {
-            case 1:
-
-
+            case 1: // Modificar una sola imagen especifica
             while (true) {
                 cout << ">>>>> Selecciona modificar una imagen especifica [entre 1 y 25]: " << endl;
                 cin >> img_especifica;
@@ -117,33 +120,17 @@ void mostrarMenu() {
                     break;
                 }
             }
-            /*
-                            image_path = "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/" + std::to_string(img_especifica) + ".jpg";
-                            img = imread(image_path, IMREAD_COLOR);
-
-            */
-
-            // Apilando imagenes
-            //ejemplo.apilar(img);
-
-
-
-            // No hay que enseñar imagen. Hay que guardar variable imagen en una pila
-
             break;
 
-            case 2:
+            case 2: // Modificar varias imagenes
                 cout << "Has seleccionado modificar varias imagenes." << endl;
 
             cout << ">>>>> Cuantas imagenes quieres editar?: ";
             cin >> cantidad;
 
-            // Limpiar la lista antes de usarla
-            imagenes_cant.clear();
+            imagenes_cant.clear(); // Limpiar la lista antes de usarla
 
-
-            // Llenar la lista con el número de imágenes
-            for (int i = 0; i < cantidad; ++i) {
+            for (int i = 0; i < cantidad; ++i) { // Llenar la lista con el número de imágenes
                 int numeroImagen;
                 do {
                     cout << ">>>>> Ingresa el numero de la imagen " << i + 1 << " (1 - 25): ";
@@ -153,8 +140,7 @@ void mostrarMenu() {
                     }
                 } while (numeroImagen < 1 || numeroImagen > 25);
 
-                // Agregar el número de imagen a la lista
-                imagenes_cant.push_back(numeroImagen);
+                imagenes_cant.push_back(numeroImagen); // Agregar el nombre de imagen a la lista
             }
 
             // Mostrar las imágenes seleccionadas
@@ -165,27 +151,26 @@ void mostrarMenu() {
 
             break;
 
-            case 3:
-                cout << "Has seleccionado modificar todas las imágenes." << endl;
-                // Modificar todas las imágenes (1 a 25)
+            case 3: // Modificar todas las imágenes (1 a 25)
+                cout << "Has seleccionado modificar TODAS las imagenes." << endl;
                 imagenes_cant.clear();
                 for (int i = 1; i <= 25; ++i) {
                     imagenes_cant.push_back(i);
                 }
 
             break;
-            case 4:
-                cout << "Has seleccionado modificar las imágenes impares." << endl;
-                // Modificar solo las imágenes impares
+            case 4: // Modificar solo las imágenes impares
+
+                cout << "Has seleccionado modificar las imágenes IMPARES." << endl;
                 imagenes_cant.clear();
                 for (int i = 1; i <= 25; i += 2) {
                     imagenes_cant.push_back(i);
                 }
 
             break;
-            case 5:
-                cout << "Has seleccionado modificar las imágenes pares." << endl;
-                // Modificar solo las imágenes pares
+            case 5: // Modificar solo las imágenes pares
+
+                cout << "Has seleccionado modificar las imagenes PARES." << endl;
                 imagenes_cant.clear();
                 for (int i = 2; i <= 25; i += 2) {
                     imagenes_cant.push_back(i);
@@ -193,42 +178,28 @@ void mostrarMenu() {
 
             break;
 
-            case 6:
+            case 6:// Mostrar el collage Original
+
                 cout << "Has seleccionado mostrar todas las imagenes originales (COLLAGE)." << endl;
-
-            ////////COLLAGE
-/*
-            collage = Funciones::createCollage(5, 5, 1200, 645, "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/");
-            //imwrite("collage.jpg", collage); // Guardar el collage
-            imshow("Collage", collage);
-            setWindowProperty("Collage", WND_PROP_TOPMOST, 1); // Mantener la ventana siempre encima
-
-            waitKey(0);
-*/
-            cout << "Has seleccionado mostrar las imagenes originales." << endl;
-            // Mostrar el collage
-            collage2 = Funciones::createCollageEdit(pilaImagenesOriginales);
-            imshow("Collage de imagenes originales", collage2);
-            waitKey(0); // Esperar hasta que el usuario cierre la ventana
+                collage2 = Funciones::createCollageEdit(pilaImagenesOriginales);
+                Funciones::mostrarImagen2(collage2, "Collage original");
             break;
 
-            case 7:
+            case 7: // Mostrar el collage Modificado
+
                 cout << "Has seleccionado mostrar las imagenes modificadas." << endl;
-                // Mostrar el collage
                 collage1 = Funciones::createCollageEdit(pilaImagenesEditadas);
-                imshow("Collage de imagenes editadas", collage1);
-                waitKey(0); // Esperar hasta que el usuario cierre la ventana
+                Funciones::mostrarImagen2(collage1, "Collage modificado");
             break;
-            case 8:
+            case 8: // Mostrar catalogo con imagenes nombradas
 
-                img_catalogo = "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/catalogoImagen.jpg";
-
-            cout << "Has seleccionado mostrar catalogo de todas las imagenes." << endl;
-            Funciones::mostrarImagen(img_catalogo, 1462, 946);
+                img_catalogo = "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/catalogoImagen.jpg"; // Ruta catalogo
+                cout << "Has seleccionado mostrar CATALOGO de todas las imagenes." << endl;
+                Funciones::mostrarImagen(img_catalogo, 1462, 946);
 
             break;
 
-            case 9:
+            case 9: // Guardar collage imagenes editadas
             collage1 = Funciones::createCollageEdit(pilaImagenesEditadas); // Collage con imagenes editadas
 
             // Directorio de salida
@@ -240,7 +211,7 @@ void mostrarMenu() {
             cout << "2. .png" << endl;
             cout << "3. .bmp" << endl;
             cout << "4. .tiff" << endl;
-            int opcion;
+
             cin >> opcion;
 
             // Formatos de guardado
@@ -260,18 +231,25 @@ void mostrarMenu() {
                 break;
 
             case 0:
-                break;
+                cout << "---------------------------------------------------------------------------------------------" << endl;
+                cout << "::::::::::::::::::::::::::::::::     ::              ::     :::::::::::::::::::::::::::::::::" << endl;
+                cout << ":::   Cerrando programa...   :::            ::::            ::::::::::   ADIOS!!   ::::::::::" << endl;
+                cout << "::::::::::::::::::::::::::::::::     ::              ::     :::::::::::::::::::::::::::::::::" << endl;
+                cout << "---------------------------------------------------------------------------------------------" << endl;
 
+            break;
 
             default:
-                cout << "Opcion no valida. Introduzca otra opcion" << endl;
+                cout << "Opcion no valida  -->  Introduzca otra opcion" << endl;
 
         }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
+
         if ((opcionTipo == 1)||(opcionTipo == 2)||(opcionTipo == 3)||(opcionTipo == 4)||(opcionTipo == 5)){
-            cout << "\n------------------------" << endl;
+            cout << "\n-------------------------" << endl;
             cout << "  :: Seleccione edicion ::" << endl;
-            cout << "------------------------" << endl;
+            cout << "-------------------------" << endl;
 
             cout << "\n1. Rotar --> (90, 180, 270, 360) [grados]" << endl;
             cout << "2. Filtro Escala de grises" << endl;
@@ -289,101 +267,208 @@ void mostrarMenu() {
             cin >> opcionEdicion;
 
 //---------------------------------------------------------------------------------------------------------------------------------------
+// Pedir variables desde el menu para no repetir al ser varias imagenes
+
+            // Variables funcion rotar
+            int grados;
+            if (opcionEdicion == 1) {
+                cout << " Rotacion imagen " << endl;
+                cout << "----------------------" << endl;
+                cout << "* Introduzca tipo de rotacion (90, 180, 270, 360): ";
+                cin >> grados;
+                if (grados != 90 && grados != 180 && grados != 270 && grados != 360) {
+                    cout << "Grado no válido. Usando 360 (sin rotación)." << endl;
+                    grados = 360;
+                }
+            }
+
+            // Variables funcion desenfocar
+            int width1, height1;
+            if (opcionEdicion == 3) {
+                while (true) {
+                    cout << " ------------------" << endl;
+                    cout << " DESENFOCAR IMAGEN" << endl;
+                    cout << " ------------------" << endl;
+                    cout << "*** Cambios en la intensidad de los pixeles (ej: 81x73): " << endl;
+                    cout << "*** NOTA *** : Cuanto mayor sean los gradientes --> imagen mas desenfocada" << endl;
+                    cout << "*** NOTA *** Los gradientes deben ser impares y positivos:  " << endl;
+
+                    cout << "* Introduzca gradientes (horizontalmente): "; cin >> width1;
+                    cout << "* Introduzca gradientes (verticalmente): "; cin >> height1;
+
+                    if ((width1 < 0 )||(height1 < 0)||(width1 % 2 == 0 )||(height1 % 2 == 0)){
+                        cout << "\n**** Los gradientes introducidos son incorrectos." << endl;
+
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            // Variables funcion modificar Contraste y brillo
+            double alpha; int beta;
+            if (opcionEdicion == 4) {
+                cout << "----------------------------" << endl;
+                cout << " CAMBIAR CONTRASTE / BRILLO " << endl;
+                cout << "----------------------------" << endl;
+                cout << "* Ingresa el valor alfa para el contraste [1.0-3.0]: "; cin >> alpha;
+                cout << "* Ingresa el valor alfa para el brillo [0-100]: ";    cin >> beta;
+
+            }
+
+            // Variables funcion recortar
+            int pos1, pos2, exten1, exten2;
+            if (opcionEdicion == 6) {
+                while (true) {
+                    cout << " --------------" << endl;
+                    cout << " CORTAR IMAGEN " << endl;
+                    cout << " --------------" << endl;
+                    cout << "*** Parametros: (x1,y1) = posicion, (x2, y2) = extension (ej: 50,50,200,200) : " << endl;
+                    cout << "*** EJ -- AYUDA*** : La imagen comienza en la posicion (50, 50) de la imagen" << endl;
+                    cout << "Se extiende 200 pix. hacia la derecha y 200 pix. hacia abajo" << endl;
+                    cout << "Se forma una imagen de 200 x 200 pixeles" << endl;
+
+                    cout << "****** NOTA: Siguiendo el ejemplo comenzaras aprox. desde el centro de la imagen a recortar";
+                    cout << "\n* Introduzca posicion x1 (inicial) (Ej: 1700): "; cin >> pos1;
+                    cout << "* Introduzca posicion y1 (inicial) (Ej: 980): "; cin >> pos2;
+                    cout << "* Introduzca anchura extension x2 (300): "; cin >> exten1;
+                    cout << "* Introduzca altura extension y2: (200)"; cin >> exten2;
+
+                    if ((pos1 < 0 )||(pos2 < 0)||(exten1 < 0 )||(exten2 < 0)){
+                        cout << "\n**** Los valores introducidos son incorrectos." << endl;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            // Variables funcion anadir Marcos/Bordes
+            int borderThickness;
+            if (opcionEdicion == 7) {
+                while (true) {
+                    cout << " ----------------------" << endl;
+                    cout << " BORDES - MARCO IMAGEN " << endl;
+                    cout << " ----------------------" << endl;
+                    cout << ">>>>> Introduzca el grosor del borde [pixeles] (Ej: 20): ";
+                    cin >> borderThickness;
+
+                    if (borderThickness < 0){
+                        cout << "\n****  Los valores introducidos son incorrectos." << endl;
+                        cout << "\n****  No es posible añadir un borde de: " << borderThickness<< " pixeles. " << endl;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            // Variables funcion invertir imagen
+            int value1;
+            if (opcionEdicion == 8) {
+                while (true) {
+                    cout << " \n ----------------" << endl;
+                    cout << "  Invertir Imagen" << endl;
+                    cout << " ----------------" << endl;
+
+                    cout << "* Inversion (Vertical / Horizontal): " << endl;
+                    cout << "\nOPCION 1: Vertical " << endl;
+                    cout << "OPCION 2: Horizontal " << endl;
+                    cout << "Introduzca el tipo de inversion a realizar: " << endl;
+                    cin >> value1;
+
+                    if ((value1 != 1)&&(value1!= 2)){
+                        cout << "\n****  El valor " << value1 << " no es una  opcion posible." << endl;
+
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            // Variables funcion nitidez
+            int value;
+            if (opcionEdicion == 9) {
+                cout << " \n ----------------" << endl;
+                cout << "  NITIDEZ IMAGEN" << endl;
+                cout << " ----------------" << endl;
+                cout << "* Introduzca el grado de nitidez (Ej: 5): ";
+                cout << "***AYUDA*** : Cuanto mayor grado de nitidez --> Imagen mas nitida " << endl;
+                cin >> value;
+            }
+
+//---------------------------------------------------------------------------------------------------------------------------------------
 
             // Iterar sobre todas las imágenes seleccionadas para aplicar la edición
             // Bucle for para lista imagenes seleccionadas para editar
             for (int numeroImagen:imagenes_cant) {
+                colaImagenes.push(numeroImagen);
+            }
+
+            // Aplicar la edicion a cada imagen en la cola
+            while (!colaImagenes.empty()) {
+                int numeroImagen = colaImagenes.front();
+                colaImagenes.pop();
+
                 string image_path = "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/"+ std::to_string(numeroImagen) +".jpg";
                 Mat img = imread(image_path, IMREAD_COLOR);
+
 
                 if (img.empty()) {
                     cout << "No se pudo cargar la imagen " << numeroImagen << endl;
                     continue;
                 }
 
-                Mat imgEditada;
+//---------------------------------------------------------------------------------------------------------------------------------------
+
 
                 switch (opcionEdicion) {
                     case 1: // Rotar imagen
-
-                            //rotat = Funciones::rotarImagen(imgRotada.desapilar());
-                        imgEditada = Funciones::rotarImagen(img);
-                        resize(imgEditada, imgEditada, Size(1200, 628));
-                    //imshow("Imagen rotada", rotat);
-
+                        imgEditada = Funciones::rotarImagen(img, grados);
                     break;
 
                     case 2: // Filtrar imagen a escala de grises
-
-                        //ejemplomat = ejemplo.desapilar();
-                    //gray = Funciones::convertirImagenAGrises(ejemplomat);
                         imgEditada = Funciones::convertirImagenAGrises(img);
-                        resize(imgEditada, imgEditada, Size(1200, 628));
-                    //imshow("Imagen gris", gray);
-
-                    //imgGris.apilar(gray);
                     break;
 
                     case 3: // Desenfocar Imagen
-
-                        imgEditada = Funciones::desenfocarImagen(img);
-                        resize(imgEditada, imgEditada, Size(1200, 628));
-                            //desenfc = Funciones::desenfocarImagen(imgDesenfc.desapilar());
-                    //imshow("Imagen desenfocada", desenfc);
+                        imgEditada = Funciones::desenfocarImagen(img, width1,height1);
                     break;
 
                     case 4: // Contraste y brillo Imagen
-
-                        imgEditada = Funciones::cambiarBrilloContrasteImagen(img);
-                        resize(imgEditada, imgEditada, Size(1200, 628));
-                            //contrast = Funciones::cambiarBrilloContrasteImagen(imgContrast.desapilar());
-                    //imshow("Imagen - Brillo / Contraste", contrast);
+                        imgEditada = Funciones::cambiarBrilloContrasteImagen(img, alpha, beta);
                     break;
 
                     case 5: // Escalar imagen
-
                         imgEditada = Funciones::escalarImagen(img);
-                            //escala = Funciones::escalarImagen(imgEscala.desapilar());
-                    //imshow("Imagen escalada", escala);
                     break;
 
                     case 6: // Recortar imagen
 
-                        imgEditada = Funciones::recortarImagen(img);
-                        resize(imgEditada, imgEditada, Size(1200, 628));
-                            //recorte = Funciones::recortarImagen(imgRecorte.desapilar());
-                    //imshow("Imagen recortada", recorte);
+                        imgEditada = Funciones::recortarImagen(img, pos1, pos2, exten1, exten2);
                     break;
 
                     case 7: // Añadir Borde imagen
 
-                        imgEditada = Funciones::anadirBordes(img);
-                        resize(imgEditada, imgEditada, Size(1200, 628));
-                            //border = Funciones::anadirBordes(imgBorder.desapilar());
-                    //imshow("Imagen con Borde - Marco", border);
+                        imgEditada = Funciones::anadirBordes(img, borderThickness);
                     break;
 
                     case 8: // Invertir imagen
 
-                        imgEditada = Funciones::invertirImg(img);
-                        resize(imgEditada, imgEditada, Size(1200, 628));
-                            //invert = Funciones::invertirImg(imgInvert.desapilar());
-                    //imshow("Imagen invertida", invert);
+                        imgEditada = Funciones::invertirImg(img, value1);
                     break;
 
                     case 9: // Nitidez imagen
 
-                        imgEditada = Funciones::anadirNitidez(img);
-                        resize(imgEditada, imgEditada, Size(1200, 645));
-                            //sharp = Funciones::anadirNitidez(imgSharp.desapilar());
-                    //imshow("Nitidez imagen", sharp);
+                        imgEditada = Funciones::anadirNitidez(img, value);
                     break;
 
                     default:
-                        cout << "Opcion no valida. Introduzca otra opcion" << endl;
-                    break;
-
+                        cout << "!!!! Opcion no valida  -->  Introduzca otra opcion" << endl;
+                    continue;
                 }
+                if (opcionEdicion != 5) {
+                    resize(imgEditada, imgEditada, Size(1200, 628));
+                }
+
 //---------------------------------------------------------------------------------------------------------------------------------------
 
                 // Reemplazar la imagen original en la pila por la imagen editada
@@ -407,19 +492,13 @@ void mostrarMenu() {
                 }
 
 
-                if ((opcionTipo == 1)||(opcionTipo == 2)) { // Mostrar la imagen editada (Solo si es una o varias imagenes)
+                if (opcionTipo == 1) { // Mostrar la imagen editada (Solo si es una imagen)
                     imshow("Imagen Editada", imgEditada);
                     waitKey(0); // Esperar una tecla para cerrar las ventanas
                 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------
-
             }
 
         }
-
     }while (opcionTipo != 0);
-    cout << "::::::::::::::::::::::::::::::::" << endl;
-    cout << ":::   Cerrando programa...   :::" << endl;
-    cout << "::::::::::::::::::::::::::::::::" << endl;
 }

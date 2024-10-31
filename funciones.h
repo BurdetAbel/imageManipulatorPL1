@@ -23,18 +23,19 @@ class Funciones {
 
     public:
         static Mat convertirImagenAGrises(Mat colorgris);
-        static Mat rotarImagen(Mat rotarimg);
+        static Mat rotarImagen(Mat rotarimg, int grados);
         static Mat escalarImagen(Mat escalarimg);
-        static Mat desenfocarImagen(Mat desenfocImg);
-        static Mat cambiarBrilloContrasteImagen(Mat contrastImg);
-        static Mat recortarImagen(Mat recortimg);
-        static Mat anadirBordes(Mat bordimg);
-        static Mat invertirImg(Mat inverted);
-        static Mat anadirNitidez(Mat sharped);
+        static Mat desenfocarImagen(Mat desenfocImg, int width1, int height1);
+        static Mat cambiarBrilloContrasteImagen(Mat contrastImg, double alpha,int beta);
+        static Mat recortarImagen(Mat recortimg, int pos1,int pos2, int exten1, int exten2);
+        static Mat anadirBordes(Mat bordimg, int borderThickness);
+        static Mat invertirImg(Mat inverted, int value1);
+        static Mat anadirNitidez(Mat sharped, int value);
         static Mat createCollage(int gridRows, int gridCols, int collageWidth, int collageHeight, string folderPath);
         static void mostrarImagen(string name_vent, int width, int height);
         static Mat createCollageEdit(std::stack<Mat> pilaImagenes);
         static void guardarImagen(Mat collage, string output_path, string formato);
+        static void mostrarImagen2(Mat imagen,string name_vent);
 };
 
 

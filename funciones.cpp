@@ -11,6 +11,7 @@
 #include <opencv2/core.hpp>
 #include <filesystem>
 #include <opencv2/imgproc.hpp>
+#include <queue>
 #include <stack>
 
 // we're NOT "using namespace std;" here, to avoid collisions between the beta variable and std::beta in c++17
@@ -21,6 +22,8 @@ using std::endl;
 using namespace cv;
 namespace fs = std::filesystem;  // Alias para el espacio de nombres
 
+//---------------------------------------------------------------------------------------------------------------------------------------
+
 Mat Funciones::convertirImagenAGrises(Mat colorgris) {
 
 
@@ -30,30 +33,27 @@ Mat Funciones::convertirImagenAGrises(Mat colorgris) {
     return gray_img; // Devuelve imagen convertida en gris
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
 
-Mat Funciones::rotarImagen(Mat rotarimg) {
+Mat Funciones::rotarImagen(Mat rotarimg, int grados) {
 
-    int grados;
+    //int grados;
     Mat rotate_img; // Guarda variable rotar
-
+    /*
     while (true) {
         cout << " Rotacion imagen " << endl;
         cout << "----------------------" << endl;
-        cout << "* Introduzca tipo de rotacion  (90, 180, 270, 360): "; cin >> grados;
+        cout << "* Introduzca tipo de rotacion  (90, 180, 270, 360): ";
+        cin >> grados;
 
         if ((grados!=90)&&(grados!=180)&&(grados!=270)&&(grados!=360)) {
 
             cout << "\n El grado " << grados << " no corresponde a ninguna opcion posible." << endl;
-
-
         } else {
             break;
-
         }
-
     }
-
-
+    */
     if(grados == 90) {
         rotate(rotarimg, rotate_img, ROTATE_90_CLOCKWISE);
     } else if(grados == 180) {
@@ -69,7 +69,7 @@ Mat Funciones::rotarImagen(Mat rotarimg) {
     return rotate_img;
 }
 
-
+//---------------------------------------------------------------------------------------------------------------------------------------
 
 Mat Funciones::escalarImagen(Mat escalarimg) {
 
@@ -96,7 +96,6 @@ Mat Funciones::escalarImagen(Mat escalarimg) {
             break;
         }
     }
-
     if (opcescalado == 1) {
         while (true) {
             cout << " ------------------------------------------" << endl;
@@ -125,36 +124,27 @@ Mat Funciones::escalarImagen(Mat escalarimg) {
                 break;
             }
         }
-
-        /*
-        int width = escalarimg.cols;
-
-        coeficiente = (coeficiente/100);
-        width = width*coeficiente;
-        height *= height*coeficiente;
-        */
-
         // Calcular el nuevo tamaño basado en el coeficiente
         coeficiente /= 100.0;
         width = static_cast<int>(escalarimg.cols * coeficiente);
         height = static_cast<int>(escalarimg.rows * coeficiente);
 
         resize(escalarimg, resize_img, Size(width, height),0,0 , INTER_LINEAR);
-
-    }
-
-    return resize_img;
+    } return resize_img;
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
 
-Mat Funciones::desenfocarImagen(Mat desenfocImg) {
+Mat Funciones::desenfocarImagen(Mat desenfocImg, int width1, int height1) {
 
-    int width1, height1;
+    //int width1, height1;
     Mat blurred_img;
 
-
+    /*
     while (true) {
-        cout << " ------------------------" << endl;
+        cout << " ------------------" << endl;
+        cout << " DESENFOCAR IMAGEN" << endl;
+        cout << " ------------------" << endl;
         cout << "*** Cambios en la intensidad de los pixeles (ej: 81x73): " << endl;
         cout << "*** NOTA *** : Cuanto mayor sean los gradientes --> imagen mas desenfocada" << endl;
         cout << "*** NOTA *** Los gradientes deben ser impares y positivos:  " << endl;
@@ -167,30 +157,30 @@ Mat Funciones::desenfocarImagen(Mat desenfocImg) {
 
         } else {
             break;
-
         }
-
     }
+    */
 
     GaussianBlur(desenfocImg, blurred_img, Size(width1, height1), 0);
-
     return blurred_img;
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
 
+Mat Funciones::cambiarBrilloContrasteImagen(Mat contrastImg, double alpha,int beta) {
 
-Mat Funciones::cambiarBrilloContrasteImagen(Mat contrastImg) {
-
-    double alpha = 1.0; // Simple contrast control
-    int beta = 0;       //Simple brightness control
+    //double alpha = 1.0; // Simple contrast control
+    //int beta = 0;       //Simple brightness control
 
     Mat contrasted_img = Mat::zeros( contrastImg.size(), contrastImg.type() );
-    /// Initialize values
-    cout << " Cambiar Contraste / Brillo " << endl;
-    cout << "--------------------------" << endl;
+    /*
+    cout << "----------------------------" << endl;
+    cout << " CAMBIAR CONTRASTE / BRILLO " << endl;
+    cout << "----------------------------" << endl;
     cout << "* Ingresa el valor alfa para el contraste [1.0-3.0]: "; cin >> alpha;
     cout << "* Ingresa el valor alfa para el brillo [0-100]: ";    cin >> beta;
 
+    */
     for( int y = 0; y < contrastImg.rows; y++ ) {
         for( int x = 0; x < contrastImg.cols; x++ ) {
             for( int c = 0; c < contrastImg.channels(); c++ ) {
@@ -198,22 +188,19 @@ Mat Funciones::cambiarBrilloContrasteImagen(Mat contrastImg) {
                   saturate_cast<uchar>( alpha*contrastImg.at<Vec3b>(y,x)[c] + beta );
             }
         }
-    }
-    return contrasted_img;
-
+    } return contrasted_img;
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
 
-Mat Funciones::recortarImagen(Mat recortimg) {
+Mat Funciones::recortarImagen(Mat recortimg,int pos1, int pos2, int exten1,int exten2) {
 
+    //int pos1, pos2, exten1, exten2;
 
-
-
-    int pos1, pos2, exten1, exten2;
-
-
+    /*
     while (true) {
-        cout << " Cortar Imagen " << endl;
+        cout << " --------------" << endl;
+        cout << " CORTAR IMAGEN " << endl;
         cout << " --------------" << endl;
         cout << "*** Parametros: (x1,y1) = posicion, (x2, y2) = extension (ej: 50,50,200,200) : " << endl;
         cout << "*** EJ -- AYUDA*** : La imagen comienza en la posicion (50, 50) de la imagen" << endl;
@@ -228,84 +215,84 @@ Mat Funciones::recortarImagen(Mat recortimg) {
 
         if ((pos1 < 0 )||(pos2 < 0)||(exten1 < 0 )||(exten2 < 0)){
             cout << "\n**** Los valores introducidos son incorrectos." << endl;
-
         } else {
             break;
-
         }
-
     }
+    */
     Rect roi(pos1,pos2,exten1,exten2);
     Mat crop_img = recortimg(roi);
 
     return crop_img;
 }
 
-Mat Funciones::anadirBordes(Mat bordimg) {
+//---------------------------------------------------------------------------------------------------------------------------------------
 
-    int borderThickness;
+Mat Funciones::anadirBordes(Mat bordimg, int borderThickness) {
+
+    //int borderThickness;
     Scalar borderColor(0,0,0);
 
+    /*
     while (true) {
-        cout << " Bordes - Marco a Imagen " << endl;
-        cout << " -----------------------" << endl;
-
-        cout << "* Introduzca el grosor del borde [pixeles] (Ej: 20): ";
+        cout << " ----------------------" << endl;
+        cout << " BORDES - MARCO IMAGEN " << endl;
+        cout << " ----------------------" << endl;
+        cout << ">>>>> Introduzca el grosor del borde [pixeles] (Ej: 20): ";
         cin >> borderThickness;
 
         if (borderThickness < 0){
             cout << "\n****  Los valores introducidos son incorrectos." << endl;
             cout << "\n****  No es posible añadir un borde de: " << borderThickness<< " pixeles. " << endl;
-
-
         } else {
             break;
         }
     }
+    */
 
-
-    // Add borders to the image using the copyMakeBorder function
-
+    // Añadir bordes a la imegen usand funcion copyMakeBorder
     Mat imageWithBorders;
     copyMakeBorder(bordimg, imageWithBorders,
-                   borderThickness, borderThickness, // Thickness of the top and bottom borders
-                   borderThickness, borderThickness, // Thickness of the left and right borders
+                   borderThickness, borderThickness,
+                   borderThickness, borderThickness,
                    BORDER_CONSTANT, borderColor);
 
     return imageWithBorders;
-
-
 }
 
-Mat Funciones::anadirNitidez(Mat sharped) {
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+Mat Funciones::anadirNitidez(Mat sharped, int value) {
 
     Mat sharpImage;
-    int value;
 
+
+    /*
     cout << " \n ----------------" << endl;
-    cout << "  Nitidez Imagen" << endl;
+    cout << "  NITIDEZ IMAGEN" << endl;
     cout << " ----------------" << endl;
-
     cout << "* Introduzca el grado de nitidez (Ej: 5): ";
     cout << "***AYUDA*** : Cuanto mayor grado de nitidez --> Imagen mas nitida " << endl;
     cin >> value;
+    */
 
     // Define a kernel for sharpness
     Mat kernel = (Mat_<float>(3, 3) <<
                   0, -1, 0,
                  -1,  value, -1,
                   0, -1, 0);
-    // Apply convolution with the kernel to enhance the image
     filter2D(sharped, sharpImage, -1, kernel);
-
     return sharpImage;
 }
 
-Mat Funciones::invertirImg(Mat inverted) {
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+Mat Funciones::invertirImg(Mat inverted, int value1) {
 
     Mat invertedImage;
-    int value1;
 
+
+    /*
     while (true) {
         cout << " \n ----------------" << endl;
         cout << "  Invertir Imagen" << endl;
@@ -324,13 +311,14 @@ Mat Funciones::invertirImg(Mat inverted) {
             break;
         }
     }
-
+    */
     value1 -=1;
 
-    flip(inverted, invertedImage,value1);
+    flip(inverted, invertedImage, value1);
     return invertedImage;
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
 
 void Funciones::mostrarImagen(string name_vent, int width, int height) {
 
@@ -347,7 +335,18 @@ void Funciones::mostrarImagen(string name_vent, int width, int height) {
     waitKey(0); // Permite actualizar la ventana sin detener el programa principal
 
 }
+//---------------------------------------------------------------------------------------------------------------------------------------
 
+void Funciones::mostrarImagen2(Mat imagen, string name_vent) {
+
+    namedWindow(name_vent, WINDOW_NORMAL);
+    imshow(name_vent, imagen);
+    setWindowProperty(name_vent, WND_PROP_TOPMOST, 1); // Mantener la ventana siempre encima
+    moveWindow(name_vent, 800, 50);
+    waitKey(0); // Esperar hasta que el usuario cierre la ventana
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------
 
 Mat Funciones::createCollage(int gridRows, int gridCols, int collageWidth, int collageHeight, const string folderPath) {
     std::list<string> imagePaths;
@@ -390,6 +389,8 @@ Mat Funciones::createCollage(int gridRows, int gridCols, int collageWidth, int c
 
     return collage;
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------
 
 Mat Funciones::createCollageEdit(std::stack<Mat> pilaImagenes) {
     const int collageWidth = 1200; // Ancho total del collage
@@ -446,6 +447,8 @@ Mat Funciones::createCollageEdit(std::stack<Mat> pilaImagenes) {
     return collage;
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
+
 void Funciones::guardarImagen(Mat collage, string output_path, string formato) {
     // Verificar si el directorio de salida existe, y si no, crearlo
     if (!fs::exists(output_path)) {
@@ -464,3 +467,5 @@ void Funciones::guardarImagen(Mat collage, string output_path, string formato) {
         cerr << "Error al guardar el collage en " << rutaCompleta << endl;
     }
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------
