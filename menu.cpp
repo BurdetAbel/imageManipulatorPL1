@@ -29,13 +29,15 @@ void mostrarMenu() {
 
     /// VARIABLES ///
     int cantidad, opcionTipo, opcionEdicion, img_especifica, opcion;
-    string image_path,img_catalogo, formato, output_path;
+    string image_path, formato;
     Mat img, imgEditada, collage1, collage2;
     std::list<int> imagenes_cant; // Lista para almacenar iamgenes seleccionadas
     std::stack<Mat> pilaImagenesOriginales; //Pila para almacenar las imágenes originales
     stack<Mat> pilaImagenesEditadas; // Pila para almacenar las imágenes editadas junto con las no editadas
     std::queue<int> colaImagenes; // Cola para almacenar las imágenes seleccionadas
-    String folderPath = "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/";
+    String folderPath = "./images8k/";
+    String img_catalogo = "./images8k/catalogoImagen.jpg"; // Ruta catalogo
+    String output_path =  "./outputs/"; // Directorio de salida
 
 //---------------------------------------------------------------------------------------------------------------------------------------
 
@@ -193,7 +195,6 @@ void mostrarMenu() {
             break;
             case 8: // Mostrar catalogo con imagenes nombradas
 
-                img_catalogo = "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/catalogoImagen.jpg"; // Ruta catalogo
                 cout << "Has seleccionado mostrar CATALOGO de todas las imagenes." << endl;
                 Funciones::mostrarImagen(img_catalogo, 1462, 946);
 
@@ -201,9 +202,6 @@ void mostrarMenu() {
 
             case 9: // Guardar collage imagenes editadas
             collage1 = Funciones::createCollageEdit(pilaImagenesEditadas); // Collage con imagenes editadas
-
-            // Directorio de salida
-            output_path =  "C:/Users/abelb/CLionProjects/imageManipulatorPL1/outputs/";
 
             // Preguntar al usuario el formato de salida
             cout << ">>>>> Seleccione el formato en que desea guardar el collage: " << endl;
@@ -410,7 +408,7 @@ void mostrarMenu() {
                 int numeroImagen = colaImagenes.front();
                 colaImagenes.pop();
 
-                string image_path = "C:/Users/abelb/CLionProjects/imageManipulatorPL1/images8k/"+ std::to_string(numeroImagen) +".jpg";
+                string image_path = "./images8k/"+ std::to_string(numeroImagen) +".jpg";
                 img = imread(image_path, IMREAD_COLOR);
 
 

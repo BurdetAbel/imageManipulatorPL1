@@ -324,14 +324,12 @@ void Funciones::mostrarImagen(string name_vent, int width, int height) {
 
     Mat img_reducidd;
     Mat ventana;
-    //Esta funcion se encarga de reducir y posicionar la imagen
     ventana = imread(name_vent, IMREAD_COLOR);
     resize(ventana, img_reducidd, Size((width), (height)), 0, 0, INTER_NEAREST); //1200x628 tamaño collage final
-
     namedWindow(name_vent, WINDOW_NORMAL);
     imshow(name_vent, img_reducidd);
     setWindowProperty(name_vent, WND_PROP_TOPMOST, 1); // Mantener la ventana siempre encima
-    //moveWindow(name_vent, pos1, pos2);
+    moveWindow(name_vent, 800, 50);
     waitKey(0); // Permite actualizar la ventana sin detener el programa principal
 
 }

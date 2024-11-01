@@ -33,5 +33,3 @@ set(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)
 
 target_link_libraries(imageManipulatorPL1 ${OpenCV_LIBS})
 
-
-
